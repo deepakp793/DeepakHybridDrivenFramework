@@ -36,7 +36,12 @@ public class LoginPage extends PredefinedActions {
 		return driver.findElement(By.cssSelector("div.organization-logo.shadow>img")).isDisplayed();
 	}
 	
-	public String getTitle() {
+	public String getPageTitle() {
 		return driver.getTitle();
 	}
+	
+	public String getPageURL() {
+		return driver.getCurrentUrl();
+	}
+	
 }
