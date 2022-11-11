@@ -9,7 +9,7 @@ public class PredefinedActions {
 	protected static WebDriver driver;
 	
 	public static void start(String URL) {
-		System.setProperty("WebDriver.chrome.driver", "D:\\Automation Class-TechnoCredit\\TechnoHybridFramework\\drivers\\chromedriver_106.exe");
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_106.exe");
 		driver = new ChromeDriver();	
 		driver.manage().window().maximize();
 		driver.get(URL);
