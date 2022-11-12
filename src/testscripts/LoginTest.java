@@ -1,14 +1,17 @@
 package testscripts;
 
+import java.io.IOException;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.PredefinedActions;
 import pages.LoginPage;
+import utility.ExcelOperations;
 public class LoginTest {
 	
 	
-	@Test(dataProvider="SignIn")
+	@Test(dataProvider="SignInDataFromExcel")
 	public void tc3_TDD(String URL, String username, String password, boolean succesfulLogin) {
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com");
@@ -23,6 +26,8 @@ public class LoginTest {
 			String actualTitle= loginPage.getPageTitle();
 			Assert.assertEquals(expectedTitle, actualTitle, "Expected title was " + expectedTitle + " but actual title was " + actualTitle);
 			
+			System.out.println("Step-Clean UP");
+			PredefinedActions.closeBrowser();
 		}else{
 			System.out.println("Step-Verify Retry Login page loaded by Title");
 			String actualTitle=loginPage.getPageTitle();
@@ -37,6 +42,19 @@ public class LoginTest {
 			System.out.println("Step-Clean UP");
 			PredefinedActions.closeBrowser();
 		}
+	}
+	
+	@DataProvider(name="SignInDataFromExcel")
+	public Object[][] getLoginDataByReadExcel() throws IOException{
+		Object[][]data;
+		String filePath=".//testdata/Login Data.xlsx";
+		
+		try {
+			data=ExcelOperations.readExcelData(filePath, "LoginDataSheet");
+		} catch (IOException e) {
+			data=ExcelOperations.readExcelData(".//testdata/Login Data.xlsx", "LoginDataSheet");
+		}
+		return data;
 	}
 	
 	@DataProvider(name="SignIn")
@@ -56,7 +74,7 @@ public class LoginTest {
 		return loginData;
 	}	
 	
-	@Test
+	//@Test
 	public void tc2_negativeLogin() {
 		
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
@@ -80,7 +98,7 @@ public class LoginTest {
 		PredefinedActions.closeBrowser();
 	}
 	
-	@Test
+	//@Test
 	public void tc1_Login() {
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com/");
