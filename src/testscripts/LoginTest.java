@@ -11,7 +11,7 @@ import utility.ExcelOperations;
 public class LoginTest {
 	
 	
-	//@Test(dataProvider="SignInDataFromExcel")
+	@Test(dataProvider="SignInDataFromExcel")
 	public void tc3_TDD(String URL, String username, String password, boolean succesfulLogin) {
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com");
@@ -74,7 +74,7 @@ public class LoginTest {
 		return loginData;
 	}	
 	
-	@Test
+	@Test(enabled = false)
 	public void tc2_negativeLogin() {
 		
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
@@ -98,7 +98,7 @@ public class LoginTest {
 		PredefinedActions.closeBrowser();
 	}
 	
-	//@Test
+	@Test(enabled = false)
 	public void tc1_Login() {
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com/");
