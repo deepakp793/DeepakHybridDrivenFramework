@@ -1,5 +1,7 @@
 package base;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -7,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,7 +18,8 @@ import customExceptions.ElementNotEnabledException;
 public class PredefinedActions {
 	protected static WebDriver driver;
 	static WebDriverWait wait;
-	
+	private static Actions action;
+
 	public static void start(String URL) {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_106.exe");
 		driver = new ChromeDriver();	
@@ -23,6 +27,7 @@ public class PredefinedActions {
 		driver.get(URL);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		wait= new WebDriverWait(driver,60);
+		action =new Actions(driver);
 	}
 	
 	protected WebElement getElement(String locatorType, String locatorValue,Boolean isWaitRequired) {
@@ -88,6 +93,15 @@ public class PredefinedActions {
 		return element;		
 	}
 	
+	protected boolean waitForVisibilityOfElement(WebElement e) {
+		try {
+			wait.until(ExpectedConditions.visibilityOf(e));			
+		}catch(Exception exception){
+			return false;
+		}
+		return true;
+	}
+	
 	protected void setText(String locatorType, String locatorValue, String text, boolean isWaitRequired) {
 		WebElement e=getElement(locatorValue, locatorType, isWaitRequired);
 		if(e.isEnabled())
@@ -115,13 +129,26 @@ public class PredefinedActions {
 	protected void scrollToElement(WebElement e) {
 		if(!e.isDisplayed()) {
 			JavascriptExecutor je=(JavascriptExecutor)driver;
-			je.executeScript("arguments[0].scrolltoview(true)", e);
+			je.executeScript("arguments[0].scrollIntoView(true)", e);
 		}
 	}
 	
 	protected boolean isElementDisplayed(WebElement e) {
 		scrollToElement(e);
 		return e.isDisplayed();
+	}
+	
+	protected void mouseHover(WebElement e) {
+		scrollToElement(e);
+		action.moveToElement(e).build().perform();;
+	}
+	
+	protected List<String> getListOfElementText(List<WebElement> list) {
+		List<String> listOfElementText = new ArrayList<String>();
+		for(WebElement e : list) {
+			listOfElementText.add(e.getText());
+		}
+		return listOfElementText;
 	}
 	
 	public String getPageTitle() {
