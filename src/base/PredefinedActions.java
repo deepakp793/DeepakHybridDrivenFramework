@@ -151,6 +151,17 @@ public class PredefinedActions {
 		return listOfElementText;
 	}
 	
+	protected String getElementText(WebElement e, boolean isWaitRequired) {
+		if(isWaitRequired)
+			waitForVisibilityOfElement(e);
+		
+		String text=e.getText();
+		if(text.equals(""))
+			text=e.getAttribute("value");
+		
+		return text;
+	}
+	
 	public String getPageTitle() {
 		return driver.getTitle();
 	}
