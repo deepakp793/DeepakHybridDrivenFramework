@@ -15,8 +15,8 @@ public class MyInfo_SalaryPage extends PredefinedActions{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public String getCostToComany() {
+	public String getCostToCompany() {
+		waitForVisibilityOfElement(costToCompany);
 		return getElementText(costToCompany, false);
 	}
-
 }

@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.PredefinedActions;
+import constant.ConstantValue;
 import pages.LoginPage;
 import utility.ExcelOperations;
 public class LoginTest {
@@ -47,7 +48,7 @@ public class LoginTest {
 	@DataProvider(name="SignInDataFromExcel")
 	public Object[][] getLoginDataByReadExcel() throws IOException{
 		Object[][]data;
-		String filePath=".//testdata/Login Data.xlsx";
+		String filePath=ConstantValue.LOGINDATA;
 		
 		try {
 			data=ExcelOperations.readExcelData(filePath, "LoginDataSheet");

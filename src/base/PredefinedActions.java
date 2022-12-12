@@ -18,6 +18,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import constant.ConstantValue;
 import customExceptions.ElementNotEnabledException;
 
 public class PredefinedActions {
@@ -26,12 +27,12 @@ public class PredefinedActions {
 	private static Actions action;
 
 	public static void start(String URL) {
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_106.exe");
+		System.setProperty(ConstantValue.CHROMEDRIVERKEY, ConstantValue.CHROMEDRIVER);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(URL);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		wait = new WebDriverWait(driver, 60);
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, ConstantValue.EXPLICITWAITTIME);
 		action = new Actions(driver);
 	}
 
@@ -199,7 +200,7 @@ public class PredefinedActions {
 		File srcFile = ts.getScreenshotAs(OutputType.FILE);
 
 		try {
-			FileUtils.copyFile(srcFile, new File("./FailedTestSS/" + testCaseName + ".jpg"));
+			FileUtils.copyFile(srcFile, new File(ConstantValue.SCREENSHOTLOCATION + testCaseName + ConstantValue.SCREENSHOTEXTENSION));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

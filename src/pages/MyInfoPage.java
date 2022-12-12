@@ -12,18 +12,18 @@ public class MyInfoPage extends PredefinedActions {
 		PageFactory.initElements(driver, this);
 	}
 	
-	enum myInfoMenu{
+	public enum MyInfoMenu{
 		PERSONALDETAILS("Personal Details"),
 		JOB("Job"),
 		SALARY("Salary");
 		
 		public String value;
-		private myInfoMenu(String value){
+		private MyInfoMenu(String value){
 			this.value=value;
 		}		
 	}
 	
-	public void goToMenu(myInfoMenu myInfoMenu) {
+	public void goToMenu(MyInfoMenu myInfoMenu) {
 		String menuText = myInfoMenu.value;
 		String locatorValue=String.format(MenuPage, menuText);
 		clickOnElement(getElement("xpath", locatorValue, true),true);
