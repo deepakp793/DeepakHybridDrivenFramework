@@ -20,7 +20,7 @@ public class TestBase {
 		String URL=propFile.getPropValue("URL");
 		PredefinedActions.start(URL);
 		
-		LoginPage login = new LoginPage();
+		LoginPage login = LoginPage.getObject();
 		login.login(propFile.getPropValue("Username"), propFile.getPropValue("Password"));
 	}
 	

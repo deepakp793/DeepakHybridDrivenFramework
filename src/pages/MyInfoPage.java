@@ -5,10 +5,11 @@ import org.openqa.selenium.support.PageFactory;
 import base.PredefinedActions;
 
 public class MyInfoPage extends PredefinedActions {
+	private static MyInfoPage myInfoPage;
 	
 	private String MenuPage ="//a[contains(text(),'%s')]";
 	
-	public MyInfoPage() {
+	private MyInfoPage() {
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -21,6 +22,12 @@ public class MyInfoPage extends PredefinedActions {
 		private MyInfoMenu(String value){
 			this.value=value;
 		}		
+	}
+	
+	public static MyInfoPage getObject() {
+		if(myInfoPage==null)
+			myInfoPage=new MyInfoPage();
+		return myInfoPage;
 	}
 	
 	public void goToMenu(MyInfoMenu myInfoMenu) {

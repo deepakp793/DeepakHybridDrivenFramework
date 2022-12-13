@@ -14,6 +14,8 @@ import pages.DashboardPage.Menu;
 
 public class DashboardPage extends PredefinedActions {
 	
+	private static DashboardPage dashboardPage;
+	
 	@FindBy(xpath="//div[contains(@class,'oxd dashboard-widget-shell') and not(contains(@class,'ng-hide'))]//div[@class='widget-header']//span//following-sibling::span")
 	private List <WebElement> widgetElementList;
 	
@@ -43,8 +45,14 @@ public class DashboardPage extends PredefinedActions {
 		clickOnElement(setting, false);
 	}
 	
-	public DashboardPage(){
+	private DashboardPage(){
 		PageFactory.initElements(driver, this);
+	}
+	
+	public static DashboardPage getObject() {
+		if(dashboardPage==null)
+			dashboardPage = new DashboardPage();
+		return dashboardPage;
 	}
 	
 	public int getWidgetSize() {

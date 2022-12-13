@@ -1,13 +1,10 @@
 package testscripts;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,11 +13,9 @@ import pages.DashboardPage;
 
 public class DashboradTest extends TestBase {
 	
-	
 	@Test
 	public void verifyWidgetCountAndText() {
-		DashboardPage dashboardPage = new DashboardPage();
-		
+		DashboardPage dashboardPage= DashboardPage.getObject();
 		System.out.println("Step-Verify total 9 widget's are disply on Dashboard page");
 		int widgetCount=dashboardPage.getWidgetSize();
 		Assert.assertEquals(widgetCount, 9,"Expected widgets are 9 but in actual it is "+widgetCount);
@@ -38,8 +33,7 @@ public class DashboradTest extends TestBase {
 	
 	@Test
 	public void verifyProfileAboutContent() {
-		DashboardPage dashboardPage = new DashboardPage();
-
+		DashboardPage dashboardPage= DashboardPage.getObject();
 		System.out.println("Step-Verify User profile is displayed");
 		assertTrue(dashboardPage.isProfileDisplayed(),"Profile is not displayed");
 		

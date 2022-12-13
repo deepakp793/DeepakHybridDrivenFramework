@@ -18,7 +18,7 @@ public class LoginTest {
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com");
 		
 		System.out.println("Step-Enter username and password");
-		LoginPage loginPage = new LoginPage();
+		LoginPage loginPage = LoginPage.getObject();
 		loginPage.login(username, password);
 		
 		if(succesfulLogin) {
@@ -82,7 +82,7 @@ public class LoginTest {
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com/");
 		
 		System.out.println("Step-Enter invalid login credential");
-		LoginPage loginPage = new LoginPage();
+		LoginPage loginPage = LoginPage.getObject();
 		loginPage.login("Admin", "RKh@6Eoa9invalid");
 		
 		System.out.println("Step-Verify Retry Login page loaded by Title");
@@ -105,7 +105,7 @@ public class LoginTest {
 		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com/");
 		
 		System.out.println("Step-Enter valid login credential");
-		LoginPage loginPage = new LoginPage();
+		LoginPage loginPage = LoginPage.getObject();
 		loginPage.login("Admin", "RKh@6Eoa9H");
 		
 		System.out.println("Step-Verify home page is displayed");

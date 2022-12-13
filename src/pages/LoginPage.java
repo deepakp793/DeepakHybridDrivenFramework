@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.apache.commons.math3.analysis.integration.gauss.LegendreRuleFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import base.PredefinedActions;
 
 public class LoginPage extends PredefinedActions {
+	
+	private static LoginPage loginPage;
 	
 	@FindBy(id="txtUsername")
 	private WebElement usernameElement;
@@ -27,8 +29,14 @@ public class LoginPage extends PredefinedActions {
 	@FindBy(css = "#txtPassword-error")
 	private WebElement pwdErrorElement;
 	
-	public LoginPage() {
+	private LoginPage() {
 		PageFactory.initElements(driver, this);
+	}
+	
+	public static LoginPage getObject() {
+		if(loginPage==null)
+			loginPage= new LoginPage();
+		return loginPage;
 	}
 	
 	public void login(String username, String password) {
