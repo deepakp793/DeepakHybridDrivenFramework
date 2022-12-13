@@ -30,12 +30,12 @@ public class LoginPage extends PredefinedActions {
 	private WebElement pwdErrorElement;
 	
 	private LoginPage() {
-		PageFactory.initElements(driver, this);
 	}
 	
 	public static LoginPage getObject() {
 		if(loginPage==null)
 			loginPage= new LoginPage();
+		PageFactory.initElements(driver, loginPage);
 		return loginPage;
 	}
 	

@@ -14,12 +14,12 @@ public class MyInfo_SalaryPage extends PredefinedActions{
 	private WebElement costToCompany;
 	
 	private MyInfo_SalaryPage() {
-		PageFactory.initElements(driver, this);
 	}
 	
 	public static MyInfo_SalaryPage getObject() {
 		if(myInfo_SalaryPage==null)
 			myInfo_SalaryPage=new MyInfo_SalaryPage();
+		PageFactory.initElements(driver, myInfo_SalaryPage);
 		return myInfo_SalaryPage;
 	}
 	

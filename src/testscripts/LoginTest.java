@@ -3,6 +3,7 @@ package testscripts;
 import java.io.IOException;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.PredefinedActions;
@@ -15,7 +16,7 @@ public class LoginTest {
 	@Test(dataProvider="SignInDataFromExcel")
 	public void tc3_TDD(String URL, String username, String password, boolean succesfulLogin) {
 		System.out.println("Step-Launch Chrome Browser and Hit URL");
-		PredefinedActions.start("https://dpatil-trials77.orangehrmlive.com");
+		PredefinedActions.start(URL);
 		
 		System.out.println("Step-Enter username and password");
 		LoginPage loginPage = LoginPage.getObject();
@@ -41,8 +42,12 @@ public class LoginTest {
 			Assert.assertTrue(currentURL.endsWith(endURLString), "Not Retry Login page as page URL is different");
 			
 			System.out.println("Step-Clean UP");
-			PredefinedActions.closeBrowser();
 		}
+	}
+	
+	@AfterMethod
+	public void wrapUP() {
+		PredefinedActions.closeBrowser();
 	}
 	
 	@DataProvider(name="SignInDataFromExcel")

@@ -1,5 +1,6 @@
 package pages;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import base.PredefinedActions;
-import pages.DashboardPage.Menu;
+import constant.ConstantValue;
+import utility.PropertyFileOperations;
 
 public class DashboardPage extends PredefinedActions {
 	
@@ -37,8 +39,7 @@ public class DashboardPage extends PredefinedActions {
 	@FindBy(css="#companyInfo>div>div:nth-child(1)>p")
 	private WebElement aboutContentFirstP;
 	
-	private String abtButtonLocator="//a[text()='%s']";
-	private String menuLocator="//a[contains(text(),'%s')]";
+	PropertyFileOperations prop;
 	
 	private void expandProfileByClickOnSetting() {
 		mouseHover(profileElement);
@@ -46,12 +47,18 @@ public class DashboardPage extends PredefinedActions {
 	}
 	
 	private DashboardPage(){
-		PageFactory.initElements(driver, this);
+		try {
+			prop= new PropertyFileOperations(ConstantValue.DASHBOARDPAGELOCATOR);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static DashboardPage getObject() {
 		if(dashboardPage==null)
 			dashboardPage = new DashboardPage();
+		PageFactory.initElements(driver, dashboardPage);
 		return dashboardPage;
 	}
 	
@@ -77,9 +84,7 @@ public class DashboardPage extends PredefinedActions {
 			mouseHover(setting);
 		clickOnElement(profileAbt, false);
 	}
-	
-	
-	
+
 	public Map<String, String> getAboutInfoText(){
 		boolean flag=waitForVisibilityOfElement(aboutContentFirstP);
 		if(!flag) {
@@ -116,7 +121,7 @@ public class DashboardPage extends PredefinedActions {
 	}
 	
 	public void clickOnAboutPopupBtn(String btnName){
-		String locatorValue= String.format(abtButtonLocator, btnName);
+		String locatorValue= String.format(prop.getPropValue("abtButtonLocator"), btnName);
 		WebElement e = getElement("xpath", locatorValue, false);
 		clickOnElement(e, false);
 	}
@@ -142,7 +147,7 @@ public class DashboardPage extends PredefinedActions {
 	
 	public void gotoMenu(Menu menuName) {
 		String menuText = menuName.menuItem;
-		String locatorValue = String.format(menuLocator, menuText);
+		String locatorValue = String.format(prop.getPropValue("menuLocator"), menuText);
 		clickOnElement(getElement("xpath", locatorValue, true),false);
 	}
 	
