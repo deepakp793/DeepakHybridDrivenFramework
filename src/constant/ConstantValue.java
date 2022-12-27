@@ -9,5 +9,5 @@ public class ConstantValue {
 	public static final String SCREENSHOTEXTENSION=".jpg";
 	public static final int EXPLICITWAITTIME=60;
 	public static final String CONFIGFILEPATH = ".//config//config.properties";
-	public static final String DASHBOARDPAGELOCATOR=".//config/DashboardPageLocators.properties";
+	public static final String DASHBOARDPAGELOCATOR=".//config/DashboardPageLocators.properties ";
 }
